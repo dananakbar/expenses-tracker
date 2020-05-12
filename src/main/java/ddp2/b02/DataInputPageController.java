@@ -108,7 +108,7 @@ public class DataInputPageController implements Initializable {
         String createDay = String.format("INSERT IGNORE INTO `day`(`date`) VALUES ('%s')", this.date);
         statement.executeUpdate(createDay);
 
-        //Insert Items
+        //Insert Item
         String sql;
         sql = String.format("INSERT INTO `item`(`date`, `type`, `value`, `description`) VALUES ('%s','%s', %d , '%s')", this.date, choice, value, description);
         statement.executeUpdate(sql);
