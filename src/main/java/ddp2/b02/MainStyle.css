@@ -34,7 +34,7 @@
 
 .bills-container {
     -fx-background-color: #E5E5E5;
-    -fx-background-radius: .5em;D
+    -fx-background-radius: .5em;
     -fx-padding: 1em 2em;
 }
 
@@ -42,6 +42,10 @@
     -fx-background-color: #E5E5E5;
     -fx-background-radius: .5em;
     -fx-padding: 1em 2em;
+}
+
+.added-expenses-items-container {
+    -fx-spacing: 1em;
 }
 
 .title {
