@@ -151,6 +151,25 @@
     <state x="463" y="106" key="FileChooserDialogImpl" timestamp="1589192032891">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
+<<<<<<< HEAD
+    <state x="275" y="23" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1589189472282" />
+    <state width="1323" height="237" key="GridCell.Tab.0.bottom" timestamp="1589209736246">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="237" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1589209736246" />
+    <state width="1323" height="237" key="GridCell.Tab.0.center" timestamp="1589209736245">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="237" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1589209736245" />
+    <state width="1323" height="237" key="GridCell.Tab.0.left" timestamp="1589209736245">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="237" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1589209736245" />
+    <state width="1323" height="237" key="GridCell.Tab.0.right" timestamp="1589209736246">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="237" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1589209736246" />
+=======
     <state x="463" y="106" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1589192032891" />
     <state width="1323" height="237" key="GridCell.Tab.0.bottom" timestamp="1589209330352">
       <screen x="0" y="0" width="1366" height="728" />
@@ -168,6 +187,7 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="237" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1589209330352" />
+>>>>>>> c3641bacd4492a644309fe476a7bb582b1f16b0f
     <state x="184" y="7" key="SettingsEditor" timestamp="1589189585270">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

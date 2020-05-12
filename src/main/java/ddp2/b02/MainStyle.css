@@ -44,6 +44,10 @@
     -fx-padding: 1em 2em;
 }
 
+.added-expenses-items-container {
+    -fx-spacing: 1em;
+}
+
 .title {
     -fx-font-weight: bold;
     -fx-font-size: 1.3em;
