@@ -1,0 +1,54 @@
+/* General Styles */
+.main {
+    -fx-background-color: white;
+    -fx-alignment: center;
+}
+
+.logo {
+    -fx-text-fill: #595457;
+    -fx-font-size: 15px;
+}
+
+.btn {
+    -fx-background-color: #4D6CFA;
+    -fx-border-radius: 1em;
+    -fx-font-size: 1.3em;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.clicked {
+    -fx-background-color: #03197C;
+    -fx-border-radius: 1em;
+    -fx-font-size: 1.3em;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.vbox-container {
+    -fx-spacing: 3em;
+    -fx-padding: 1em 1em;
+}
+
+.bills-container {
+    -fx-background-color: #E5E5E5;
+    -fx-background-radius: .5em;
+    -fx-padding: 1em 2em;
+}
+
+.addexpenses-container {
+    -fx-background-color: #E5E5E5;
+    -fx-background-radius: .5em;
+    -fx-padding: 1em 2em;
+}
+
+.added-expenses-items-container {
+    -fx-spacing: 1em;
+}
+
+.title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+}
