@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 public class ComparePageController implements Initializable {
     private Stage primaryStage;
     private Scene dataInputScene;
+    
 
     public void setStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
