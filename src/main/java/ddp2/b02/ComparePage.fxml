@@ -28,16 +28,16 @@
                      <children>
                         <AnchorPane prefHeight="508.0" prefWidth="785.0">
                            <children>
-                              <DatePicker layoutX="18.0" layoutY="21.0" promptText="From date..." />
-                              <DatePicker layoutX="203.0" layoutY="21.0" promptText="To date..." />
+                              <DatePicker fx:id="fromDatePick" layoutX="18.0" layoutY="21.0" promptText="From date..." />
+                              <DatePicker fx:id="toDatePick" layoutX="203.0" layoutY="21.0" promptText="To date..." />
                               <Button layoutX="241.0" layoutY="423.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="142.0" styleClass="btn" text="Summary" />
                               <Button layoutX="398.0" layoutY="423.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="142.0" styleClass="btn" text="By Category" />
-                              <LineChart layoutX="32.0" layoutY="59.0" prefHeight="348.0" prefWidth="713.0">
+                              <LineChart fx:id="lineChart" layoutX="32.0" layoutY="59.0" prefHeight="348.0" prefWidth="713.0">
                                 <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
+                                  <CategoryAxis label="Date" side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis side="LEFT" />
+                                  <NumberAxis label="Total Expenses" side="LEFT" />
                                 </yAxis>
                               </LineChart>
                            </children>
