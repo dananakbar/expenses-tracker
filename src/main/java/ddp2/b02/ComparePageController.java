@@ -83,7 +83,6 @@ public class ComparePageController implements Initializable {
         lineChart.getData().add(series);
     }
 
-    
 
     // Event handler when a from date is selected
     fromDatePick.setOnAction(event -> {
