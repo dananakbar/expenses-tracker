@@ -1,13 +1,23 @@
 package ddp2.b02;
 
+import connectivity.Connectivity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ComparePageController implements Initializable {
@@ -32,6 +42,9 @@ public class ComparePageController implements Initializable {
     @FXML
     private LineChart lineChart;
 
+    public ComparePageController() throws SQLException {
+    }
+
     public void setStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -47,7 +60,7 @@ public class ComparePageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Query statement
-        String todayDate = ((LocalDate) LocalDate.now()).toString(); 
+        String todayDate = ((LocalDate) LocalDate.now()).toString();
         String queryTodayData;
         queryTodayData = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", todayDate);
 
