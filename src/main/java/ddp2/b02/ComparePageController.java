@@ -108,7 +108,7 @@ public class ComparePageController implements Initializable {
             queryStatement = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", date.toString());
             
             // Getting the data
-            totalExpenses = 0;
+            int totalExpenses = 0;
             try {
                 ResultSet rs;
                 rs = statement.executeQuery(queryStatement);
@@ -153,7 +153,7 @@ public class ComparePageController implements Initializable {
             queryStatement = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", date.toString());
             
             // Getting the data
-            totalExpenses = 0;
+            int totalExpenses = 0;
             try {
                 ResultSet rs;
                 rs = statement.executeQuery(queryStatement);
