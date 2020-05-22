@@ -72,15 +72,16 @@ public class ComparePageController implements Initializable {
 
     
     public void onFromDateChange(ActionEvent actionEvent) {
-        if (toDatePick.getValue() == null) return;
-        if (toDatePick.isBefore(fromDatePick)) return;
-        
-        // Clear line chart
-        lineChart.getData().remove(0);
-
         // Get from and to dates
         LocalDate fromLocalDate = fromDatePick.getValue();
         LocalDate toLocalDate = toDatePick.getValue();
+
+        // Date choice validity check
+        if (toLocalDate == null) return;
+        if (toLocalDate.isBefore(fromLocalDate)) return;
+        
+        // Clear line chart
+        lineChart.getData().remove(0);
 
         // Setup the series
         XYChart.Series series = new XYChart.Series();
@@ -116,15 +117,16 @@ public class ComparePageController implements Initializable {
 
 
     public void onToDateChange(ActionEvent actionEvent) {
-        if (fromDatePick.getValue() == null) return;
-        if (toDatePick.isBefore(fromDatePick)) return;
-        
-        // Clear line chart
-        lineChart.getData().remove(0);
-
         // Get from and to dates
         LocalDate fromLocalDate = fromDatePick.getValue();
         LocalDate toLocalDate = toDatePick.getValue();
+
+        // Date choice validity check
+        if (fromLocalDate == null) return;
+        if (toLocalDate.isBefore(fromLocalDate)) return;
+        
+        // Clear line chart
+        lineChart.getData().remove(0);
 
         // Setup the series
         XYChart.Series series = new XYChart.Series();
@@ -156,94 +158,4 @@ public class ComparePageController implements Initializable {
         // Add the new series to the line chart
         lineChart.getData().add(series);
     }
-
-
-    
-    // Event handler when a from date is selected
-    // fromDatePick.setOnAction(event -> {
-    //     if (toDatePick.getValue() == null) return;
-    //     if (toDatePick.isBefore(fromDatePick)) return;
-        
-    //     // Clear line chart
-    //     lineChart.getData().remove(0);
-
-    //     // Get from and to dates
-    //     LocalDate fromLocalDate = fromDatePick.getValue();
-    //     LocalDate toLocalDate = toDatePick.getValue();
-
-    //     // Setup the series
-    //     XYChart.Series series = new XYChart.Series();
-    //     series.setName("Expenses from %s until %s", fromLocalDate.toString(), toLocalDate.toString());
-
-    //     // Get total expenses per day, from start date to end date
-    //     for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
-    //         // Query statement
-    //         String queryStatement;
-    //         queryStatement = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", date.toString());
-            
-    //         // Getting the data
-    //         int totalExpenses = 0;
-    //         try {
-    //             ResultSet rs;
-    //             rs = statement.executeQuery(queryStatement);
-    //             while (rs.next()) { // Iterate through all the data recieved
-    //                 totalExpenses += rs.getInt("value");
-    //             }
-    //         } catch (Exception ex) {
-    //             ex.printStackTrace();
-    //         }
-
-    //         // Add this date total expenses to the series
-    //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy"); // Date formatter
-    //         series.getData().add(new XYChart.Data(formatter.format(date), totalExpenses));
-    //     }
-
-    //     // Add the new series to the line chart
-    //     lineChart.getData().add(series);
-    // });
-
-
-    
-    // Event handler when a to date is selected
-    // toDatePick.setOnAction(event -> {
-    //     if (fromDatePick.getValue() == null) return;
-    //     if (toDatePick.isBefore(fromDatePick)) return;
-        
-    //     // Clear line chart
-    //     lineChart.getData().remove(0);
-
-    //     // Get from and to dates
-    //     LocalDate fromLocalDate = fromDatePick.getValue();
-    //     LocalDate toLocalDate = toDatePick.getValue();
-
-    //     // Setup the series
-    //     XYChart.Series series = new XYChart.Series();
-    //     series.setName("Expenses from %s until %s", fromLocalDate.toString(), toLocalDate.toString());
-
-    //     // Get total expenses per day, from start date to end date
-    //     for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
-    //         // Query statement
-    //         String queryStatement;
-    //         queryStatement = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", date.toString());
-            
-    //         // Getting the data
-    //         int totalExpenses = 0;
-    //         try {
-    //             ResultSet rs;
-    //             rs = statement.executeQuery(queryStatement);
-    //             while (rs.next()) { // Iterate through all the data recieved
-    //                 totalExpenses += rs.getInt("value");
-    //             }
-    //         } catch (Exception ex) {
-    //             ex.printStackTrace();
-    //         }
-
-    //         // Add this date total expenses to the series
-    //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy"); // Date formatter
-    //         series.getData().add(new XYChart.Data(formatter.format(date), totalExpenses));
-    //     }
-
-    //     // Add the new series to the line chart
-    //     lineChart.getData().add(series);
-    // });
 }
