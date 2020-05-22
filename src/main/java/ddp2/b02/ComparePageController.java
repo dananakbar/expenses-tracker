@@ -44,7 +44,8 @@ public class ComparePageController implements Initializable {
     // Pie chart
     @FXML
     private PieChart pieChart;
-    pieChart.setLabelLineLength(10);
+    pieChart.setLabelsVisible(false); // Hide labels
+    pieChart.setLegendVisible(true);
     pieChart.setLegendSide(Side.RIGHT);
 
     // Go to summary page button
