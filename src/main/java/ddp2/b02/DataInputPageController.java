@@ -132,11 +132,14 @@ public class DataInputPageController implements Initializable {
         ResultSet resultSet = statement.executeQuery(query);
 
         // Fetching the data from result
-        while(resultSet.next()) {
-            String description = resultSet.getString("expenseDescription");
-            int value = resultSet.getInt("expenseValue");
-
-            System.out.format("%s, %d", description, value);
+        try {
+            while(resultSet.next()) {
+                String description = resultSet.getString("expenseDescription");
+                int value = resultSet.getInt("expenseValue");
+                System.out.format("%s, %d", description, value);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         statement.close();
     }
