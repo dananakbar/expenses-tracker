@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -30,6 +31,16 @@ public class ComparePageController implements Initializable {
     private Connection connection = connectivity.getConnection();
     private Statement statement = connection.createStatement();
 
+    // List of expenses category
+    private String[] categoryList = {
+        "FOOD",
+        "HOUSING",
+        "HEALTHCARE",
+        "ACADEMIC",
+        "MISC",
+        "TRANSPORT"
+      };
+
     // From date picker
     @FXML
     private DatePicker fromDatePick;
@@ -42,8 +53,24 @@ public class ComparePageController implements Initializable {
     @FXML
     private LineChart lineChart;
 
+    // Pie chart
+    @FXML
+    private PieChart pieChart;
+    pieChart.setLabelsVisible(false); // Hide labels
+    pieChart.setLegendVisible(true);
+    pieChart.setLegendSide(Side.RIGHT);
+
+    // Go to summary page button
+    @FXML
+    private Button summaryButton;
+
+    // Go to category page button
+    @FXML
+    private Button categoryButton;
+
     public ComparePageController() throws SQLException {
     }
+
 
     public void setStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -57,8 +84,20 @@ public class ComparePageController implements Initializable {
         this.primaryStage.setScene(this.dataInputScene);
     }
 
+
+
+    /**
+     * Will initialize to display summary page
+     * Category page elements will be hidden
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        summaryButton.setDisable(true); // Disable summary button
+        pieChart.setVisible(false); // Hide pie chart
+
+        /**
+         * Generate the Line Graph for summary page
+         */
         // Query statement
         String todayDate = ((LocalDate) LocalDate.now()).toString();
         String queryTodayData;
@@ -81,20 +120,58 @@ public class ComparePageController implements Initializable {
         series.setName("Today's Expenses");
         series.getData().add(new XYChart.Data(todayDate, totalExpenses));
         lineChart.getData().add(series);
+
+
+        /**
+         * Generate the Pie Chart for summary page
+         */
+        // PieChart.Data array to store all expenses data per category
+        PieChart.Data[] totalPerCategory = new PieChart.Data[categoryList.length];
+
+        // Get total expenses per category
+        for (int i = 0; i < categoryList.length; i++) {
+            // Query statement
+            String category = categoryList[i];
+            String queryForCategory;
+            queryForCategory = String.format("SELECT * FROM expenses_tracker_db WHERE type=%s", category);
+
+            // Getting the data
+            int totalExpenses = 0;
+            try {
+                ResultSet rs;
+                rs = statement.executeQuery(queryForCategory);
+                while (rs.next()) { // Iterate through all the data recieved
+                    totalExpenses += rs.getInt("value");
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            // Add this category total expenses data to PieChart.Data array
+            totalPerCategory[i] = new PieChart.Data(category, totalExpenses);
+        }
+
+        // Generating the pie chart
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(totalPerCategory);
+        pieChart.setData(pieChartData);
     }
 
 
     
+    /**
+     * Event handler when from date was changed
+     */
     public void onFromDateChange(ActionEvent actionEvent) {
-        if (toDatePick.getValue() == null) return;
-        if (toDatePick.isBefore(fromDatePick)) return;
-        
-        // Clear line chart
-        lineChart.getData().remove(0);
-
         // Get from and to dates
         LocalDate fromLocalDate = fromDatePick.getValue();
         LocalDate toLocalDate = toDatePick.getValue();
+
+        // Date choice validity check
+        if (toLocalDate == null) return;
+        if (toLocalDate.isBefore(fromLocalDate)) return;
+        
+        // Clear line chart
+        lineChart.getData().remove(0);
 
         // Setup the series
         XYChart.Series series = new XYChart.Series();
@@ -129,16 +206,20 @@ public class ComparePageController implements Initializable {
 
 
 
+    /**
+     * Event handler when to date was changed
+     */
     public void onToDateChange(ActionEvent actionEvent) {
-        if (fromDatePick.getValue() == null) return;
-        if (toDatePick.isBefore(fromDatePick)) return;
-        
-        // Clear line chart
-        lineChart.getData().remove(0);
-
         // Get from and to dates
         LocalDate fromLocalDate = fromDatePick.getValue();
         LocalDate toLocalDate = toDatePick.getValue();
+
+        // Date choice validity check
+        if (fromLocalDate == null) return;
+        if (toLocalDate.isBefore(fromLocalDate)) return;
+        
+        // Clear line chart
+        lineChart.getData().remove(0);
 
         // Setup the series
         XYChart.Series series = new XYChart.Series();
@@ -172,92 +253,31 @@ public class ComparePageController implements Initializable {
     }
 
 
-    
-    // Event handler when a from date is selected
-    // fromDatePick.setOnAction(event -> {
-    //     if (toDatePick.getValue() == null) return;
-    //     if (toDatePick.isBefore(fromDatePick)) return;
+
+    /**
+     * Event handler on summary button press
+     */
+    public void gotoSummary(ActionEvent actionEvent) {
+        categoryButton.setDisable(false); // Enable category button
+        summaryButton.setDisable(true); // Disable summary button
+        pieChart.setVisible(false); // Hide pie chart
+        lineChart.setVisible(true); // Show line chart
+        fromDatePick.setVisible(true); // Show from date picker
+        toDatePick.setVisible(true); // Show to date picker
         
-    //     // Clear line chart
-    //     lineChart.getData().remove(0);
-
-    //     // Get from and to dates
-    //     LocalDate fromLocalDate = fromDatePick.getValue();
-    //     LocalDate toLocalDate = toDatePick.getValue();
-
-    //     // Setup the series
-    //     XYChart.Series series = new XYChart.Series();
-    //     series.setName("Expenses from %s until %s", fromLocalDate.toString(), toLocalDate.toString());
-
-    //     // Get total expenses per day, from start date to end date
-    //     for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
-    //         // Query statement
-    //         String queryStatement;
-    //         queryStatement = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", date.toString());
-            
-    //         // Getting the data
-    //         int totalExpenses = 0;
-    //         try {
-    //             ResultSet rs;
-    //             rs = statement.executeQuery(queryStatement);
-    //             while (rs.next()) { // Iterate through all the data recieved
-    //                 totalExpenses += rs.getInt("value");
-    //             }
-    //         } catch (Exception ex) {
-    //             ex.printStackTrace();
-    //         }
-
-    //         // Add this date total expenses to the series
-    //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy"); // Date formatter
-    //         series.getData().add(new XYChart.Data(formatter.format(date), totalExpenses));
-    //     }
-
-    //     // Add the new series to the line chart
-    //     lineChart.getData().add(series);
-    // });
+    }
 
 
-    
-    // Event handler when a to date is selected
-    // toDatePick.setOnAction(event -> {
-    //     if (fromDatePick.getValue() == null) return;
-    //     if (toDatePick.isBefore(fromDatePick)) return;
-        
-    //     // Clear line chart
-    //     lineChart.getData().remove(0);
 
-    //     // Get from and to dates
-    //     LocalDate fromLocalDate = fromDatePick.getValue();
-    //     LocalDate toLocalDate = toDatePick.getValue();
-
-    //     // Setup the series
-    //     XYChart.Series series = new XYChart.Series();
-    //     series.setName("Expenses from %s until %s", fromLocalDate.toString(), toLocalDate.toString());
-
-    //     // Get total expenses per day, from start date to end date
-    //     for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
-    //         // Query statement
-    //         String queryStatement;
-    //         queryStatement = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", date.toString());
-            
-    //         // Getting the data
-    //         int totalExpenses = 0;
-    //         try {
-    //             ResultSet rs;
-    //             rs = statement.executeQuery(queryStatement);
-    //             while (rs.next()) { // Iterate through all the data recieved
-    //                 totalExpenses += rs.getInt("value");
-    //             }
-    //         } catch (Exception ex) {
-    //             ex.printStackTrace();
-    //         }
-
-    //         // Add this date total expenses to the series
-    //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy"); // Date formatter
-    //         series.getData().add(new XYChart.Data(formatter.format(date), totalExpenses));
-    //     }
-
-    //     // Add the new series to the line chart
-    //     lineChart.getData().add(series);
-    // });
+    /**
+     * Event handler on category button press
+     */
+    public void gotoCategory(ActionEvent actionEvent) {
+        categoryButton.setDisable(true); // Disable category button
+        summaryButton.setDisable(false); // Enable summary button
+        pieChart.setVisible(true); // Show pie chart
+        lineChart.setVisible(false); // Hide line chart
+        fromDatePick.setVisible(false); // Hide from date picker
+        toDatePick.setVisible(false); // Hide to date picker
+    }
 }
