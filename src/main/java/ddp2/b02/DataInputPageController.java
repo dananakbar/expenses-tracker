@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -112,5 +113,31 @@ public class DataInputPageController implements Initializable {
         String sql;
         sql = String.format("INSERT INTO `item`(`date`, `type`, `value`, `description`) VALUES ('%s','%s', %d , '%s')", this.date, choice, value, description);
         statement.executeUpdate(sql);
+    }
+
+    /**
+     * Event handlers to show expense
+     *
+     * @param actionEvent
+     * @param type
+     * @throws SQLException
+     */
+    public void showExpense(ActionEvent actionEvent, String type) throws SQLException {
+
+        // Create SELECT query
+        String query = String.format("SELECT * FROM item WHERE date=date, type='%s'", type);
+
+        // Create result of query
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        // Fetching the data from result
+        while(resultSet.next()) {
+            String description = resultSet.getString("expenseDescription");
+            int value = resultSet.getInt("expenseValue");
+
+            System.out.format("%s, %d", description, value);
+        }
+        statement.close();
     }
 }
