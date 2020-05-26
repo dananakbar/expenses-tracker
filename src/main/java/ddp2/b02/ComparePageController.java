@@ -98,7 +98,7 @@ public class ComparePageController implements Initializable {
 
         // Setup the series
         XYChart.Series series = new XYChart.Series();
-        series.setName("Expenses from %s until %s", fromLocalDate.toString(), toLocalDate.toString());
+        series.setName(String.format("Expenses from %s until %s", fromLocalDate.toString(), toLocalDate.toString()));
 
         // Get total expenses per day, from start date to end date
         for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
@@ -142,7 +142,7 @@ public class ComparePageController implements Initializable {
 
         // Setup the series
         XYChart.Series series = new XYChart.Series();
-        series.setName("Expenses from %s until %s", fromLocalDate.toString(), toLocalDate.toString());
+        series.setName(String.format("Expenses from %s until %s", fromLocalDate.toString(), toLocalDate.toString()));
 
         // Get total expenses per day, from start date to end date
         for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
