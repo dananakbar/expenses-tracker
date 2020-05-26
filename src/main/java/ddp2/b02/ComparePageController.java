@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
@@ -58,9 +59,9 @@ public class ComparePageController implements Initializable {
     // Pie chart
     @FXML
     private PieChart pieChart;
-//    pieChart.setLabelsVisible(false); // Hide labels
-//    pieChart.setLegendVisible(true);
-//    pieChart.setLegendSide(Side.RIGHT);
+    pieChart.setLabelsVisible(false); // Hide labels
+    pieChart.setLegendVisible(true);
+    pieChart.setLegendSide(Side.RIGHT);
 
     // Go to summary page button
     @FXML
