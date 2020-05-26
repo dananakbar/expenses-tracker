@@ -1,6 +1,8 @@
 package ddp2.b02;
 
 import connectivity.Connectivity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,9 +58,9 @@ public class ComparePageController implements Initializable {
     // Pie chart
     @FXML
     private PieChart pieChart;
-    pieChart.setLabelsVisible(false); // Hide labels
-    pieChart.setLegendVisible(true);
-    pieChart.setLegendSide(Side.RIGHT);
+//    pieChart.setLabelsVisible(false); // Hide labels
+//    pieChart.setLegendVisible(true);
+//    pieChart.setLegendSide(Side.RIGHT);
 
     // Go to summary page button
     @FXML
@@ -101,7 +103,7 @@ public class ComparePageController implements Initializable {
         // Query statement
         String todayDate = ((LocalDate) LocalDate.now()).toString();
         String queryTodayData;
-        queryTodayData = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", todayDate);
+        queryTodayData = String.format("SELECT * FROM item WHERE date=%s", todayDate);
 
         // Getting the data
         int totalExpenses = 0;
@@ -133,10 +135,10 @@ public class ComparePageController implements Initializable {
             // Query statement
             String category = categoryList[i];
             String queryForCategory;
-            queryForCategory = String.format("SELECT * FROM expenses_tracker_db WHERE type=%s", category);
+            queryForCategory = String.format("SELECT * FROM item WHERE type='%s'", category);
 
             // Getting the data
-            int totalExpenses = 0;
+            totalExpenses = 0;
             try {
                 ResultSet rs;
                 rs = statement.executeQuery(queryForCategory);
@@ -181,7 +183,7 @@ public class ComparePageController implements Initializable {
         for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
             // Query statement
             String queryStatement;
-            queryStatement = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", date.toString());
+            queryStatement = String.format("SELECT * FROM item WHERE date=%s", date.toString());
             
             // Getting the data
             int totalExpenses = 0;
@@ -229,7 +231,7 @@ public class ComparePageController implements Initializable {
         for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
             // Query statement
             String queryStatement;
-            queryStatement = String.format("SELECT * FROM expenses_tracker_db WHERE date=%s", date.toString());
+            queryStatement = String.format("SELECT * FROM item WHERE date=%s", date.toString());
             
             // Getting the data
             int totalExpenses = 0;
