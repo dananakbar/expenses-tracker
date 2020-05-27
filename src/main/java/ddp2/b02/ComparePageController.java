@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+// import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ComparePageController implements Initializable {
@@ -199,7 +199,7 @@ public class ComparePageController implements Initializable {
             }
 
             // Add this date total expenses to the series
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy"); // Date formatter
+            // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy"); // Date formatter
             series.getData().add(new XYChart.Data(formatter.format(date), totalExpenses));
         }
 
@@ -247,7 +247,7 @@ public class ComparePageController implements Initializable {
             }
 
             // Add this date total expenses to the series
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy"); // Date formatter
+            // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy"); // Date formatter
             series.getData().add(new XYChart.Data(formatter.format(date), totalExpenses));
         }
 
