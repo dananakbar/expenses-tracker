@@ -104,7 +104,7 @@ public class ComparePageController implements Initializable {
         // Query statement
         String todayDate = ((LocalDate) LocalDate.now()).toString();
         String queryTodayData;
-        queryTodayData = String.format("SELECT * FROM item WHERE date=%s", todayDate);
+        queryTodayData = String.format("SELECT * FROM item WHERE date='%s'", todayDate);
 
         // Getting the data
         int totalExpenses = 0;
@@ -184,7 +184,7 @@ public class ComparePageController implements Initializable {
         for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
             // Query statement
             String queryStatement;
-            queryStatement = String.format("SELECT * FROM item WHERE date=%s", date.toString());
+            queryStatement = String.format("SELECT * FROM item WHERE date='%s'", date.toString());
             
             // Getting the data
             int totalExpenses = 0;
@@ -232,7 +232,7 @@ public class ComparePageController implements Initializable {
         for (LocalDate date = fromLocalDate; date.isBefore(toLocalDate.plusDays(1)); date = date.plusDays(1)) {
             // Query statement
             String queryStatement;
-            queryStatement = String.format("SELECT * FROM item WHERE date=%s", date.toString());
+            queryStatement = String.format("SELECT * FROM item WHERE date='%s'", date.toString());
             
             // Getting the data
             int totalExpenses = 0;
